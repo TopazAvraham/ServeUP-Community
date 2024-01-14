@@ -5,6 +5,5 @@ const levelOptions = {
     3: 'Smasher',
     4: 'Elite',
     5: 'Legend',
-    6: 'Master',
   };
 export default levelOptions;
