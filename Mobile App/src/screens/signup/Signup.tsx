@@ -23,6 +23,21 @@ interface CustomAlertProps {
   onPress: () => void;
 }
 
+const CustomAlert: React.FC<CustomAlertProps> = ({ isVisible, title, message, onPress }) => {
+  return (
+    <Modal isVisible={isVisible} animationIn="fadeIn" animationOut="fadeOut">
+      <View style={styles.alertContainer}>
+        <Text style={styles.alertTitle}>{title}</Text>
+        <Text style={styles.alertMessage}>{message}</Text>
+        <TouchableOpacity style={styles.alertButton} onPress={onPress}>
+          <Text style={styles.alertButtonText}>OK</Text>
+        </TouchableOpacity>
+      </View>
+    </Modal>
+  );
+};
+
+
 const SignupScreen = ({ navigation }: any) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -48,7 +63,8 @@ const SignupScreen = ({ navigation }: any) => {
         'https://parseapi.back4app.com/classes/Israelcities_City?limit=1000&order=name&keys=name,adminCode',
         {
           headers: {
-
+            'X-Parse-Application-Id': 'yTikTB1eWHWu8fntgioQCSGJbMoZB5hacnQotiNA',
+            'X-Parse-REST-API-Key': '3KWAURPh9rnIHjSoLoWcfk9xz0IM3ZTC1itmbv5n',
           }
         }
       );
@@ -158,6 +174,7 @@ const SignupScreen = ({ navigation }: any) => {
         const adminCode = apiCityData.find(city => city.name === cityValue).adminCode;
         await AsyncStorage.setItem("userToken", "dummyToken");
         navigation.navigate("SignupContinueScreen", {
+          age: value,
           username,
           displayName,
           city: cityValue, // Use the selected city value
