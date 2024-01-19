@@ -5,7 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  Image,
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import Person from "../../../assets/Person.svg";
@@ -29,9 +28,6 @@ const CustomAlert: React.FC<CustomAlertProps> = ({ isVisible, title, message, on
       <View style={styles.alertContainer}>
         <Text style={styles.alertTitle}>{title}</Text>
         <Text style={styles.alertMessage}>{message}</Text>
-        <TouchableOpacity style={styles.alertButton} onPress={onPress}>
-          <Text style={styles.alertButtonText}>OK</Text>
-        </TouchableOpacity>
       </View>
     </Modal>
   );
@@ -127,7 +123,7 @@ const SignupScreen = ({ navigation }: any) => {
     return "Please fill in all fields and choose a photo before continuing.";
   };
   
-  const [isAlertVisible, setAlertVisible] = useState(false);
+  const [tryAlert, setAlertVisible] = useState(false);
   const [username, setUsername] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [city, setCity] = useState("");
@@ -282,8 +278,8 @@ const SignupScreen = ({ navigation }: any) => {
       </ScrollView>
 
       <CustomAlert
-        isVisible={isAlertVisible}
-        title="Validation Error"
+        isVisible={TryAlert}
+        title="Please Try again"
         message={determineValidationMessage()}
         onPress={() => cleanStates()}
       />
