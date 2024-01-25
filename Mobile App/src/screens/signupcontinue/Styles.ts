@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-
+import { ZeplinHeight, ZeplinWidth } from "../../../helpers/ZeplineHelper";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -9,12 +9,27 @@ const styles = StyleSheet.create({
   },
   bodyContainer: {
     flex: 1,
-    marginTop: 43,
+    marginTop: "4%",
+  },
+  contentContainerStyle: {
+    // flex: 1,
+  },
+  mainView: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    flex: 1,
   },
   title: {
     fontFamily: "bold",
     fontSize: 32,
     color: "#EEE",
+  },
+  desp: {
+    fontFamily: "bold",
+    fontSize: 24,
+    color: "#8F8F93",
+    marginTop: 6,
   },
   avatarViewContainer: {
     justifyContent: "center",
@@ -30,7 +45,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   inputField: {
-    height: 50,
+    height: 64,
+    // backgroundColor: "red",
     borderRadius: 16,
     borderColor: "#636363",
     borderWidth: 1,
@@ -54,24 +70,12 @@ const styles = StyleSheet.create({
     height: 55,
     backgroundColor: "#D5FF45",
     borderRadius: 16,
-    marginTop: 26,
+    marginTop: 6,
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 24,
   },
   signupBtnText: {
-    fontFamily: "semiBold",
-    color: "#000",
-    fontSize: 18,
-  },
-  continueBtn: {
-    height: 55,
-    backgroundColor: "#D5FF45",
-    borderRadius: 16,
-    marginTop: 26,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  continueBtnText: {
     fontFamily: "semiBold",
     color: "#000",
     fontSize: 18,
@@ -81,22 +85,10 @@ const styles = StyleSheet.create({
     borderColor: "#636363",
     borderRadius: 16,
     marginTop: -4,
-    zIndex: 1000,
     backgroundColor: "#162529",
     marginBottom: 16,
-    height: 50,
+    height: 65,
   },
-  dropdownContainer2: {
-    borderWidth: 1,
-    borderColor: "#636363",
-    borderRadius: 16,
-    marginTop: -4,
-    zIndex: 2000,
-    backgroundColor: "#162529",
-    marginBottom: 16,
-    height: 50,
-  },
-
   dropdownText: {
     fontFamily: "medium",
     fontSize: 24,
@@ -107,40 +99,52 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#636363",
     borderRadius: 4,
+    zIndex: 1000,
     backgroundColor: "#162529",
     color: "#EEE",
   },
-  alertContainer: {
-    backgroundColor: "#162529",
-    padding: 24,
+  bg: {
+    width: 160,
+    height: 160,
+    // flex: 1,
     borderRadius: 16,
-    borderWidth: 1,
-    borderColor: "#636363",
+    marginBottom: 17,
+    // paddingHorizontal: 16,
+    // paddingVertical: 20,
   },
-  alertTitle: {
-    fontFamily: "semiBold",
-    fontSize: 24,
-    color: "#EEE",
-    marginBottom: 8,
+  selectedImage: {
+    borderWidth: 4,
+    borderColor: "#D5FF45", // Yellow color
+    overflow: "hidden", // Add this line
   },
-  alertMessage: {
-    fontFamily: "medium",
-    fontSize: 16,
-    color: "#EEE",
-    marginBottom: 16,
+  
+  
+  
+  transparentView: {
+    flex: 1,
+    backgroundColor: "black",
+    opacity: 0.78,
+    borderRadius: 10,
+    alignItems: "center",
+    paddingHorizontal: 12,
   },
-  alertButton: {
-    height: 40,
-    backgroundColor: "#D5FF45",
-    borderRadius: 8,
-    justifyContent: "center",
+  clickableView: {
+    flex: 1,
     alignItems: "center",
   },
-  alertButtonText: {
-    fontFamily: "semiBold",
-    color: "#000",
-    fontSize: 16,
+  cardTitle: {
+    fontFamily: "displayBold",
+    fontSize: 24,
+    color: "#D5FF45",
+    marginTop: 11,
+    opacity: 100,
   },
-
+  cardDesp: {
+    fontFamily: "displayBold",
+    fontSize: 12,
+    color: "#FFF",
+    textAlign: "center",
+    marginTop: 8,
+  },
 });
 export default styles;

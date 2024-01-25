@@ -166,7 +166,7 @@ const SignupScreen = ({ navigation }: any) => {
           return;
         }
   
-        // Your logic to store data, navigate, etc.
+        
         const adminCode = apiCityData.find(city => city.name === cityValue).adminCode;
         await AsyncStorage.setItem("userToken", "dummyToken");
         navigation.navigate("SignupContinueScreen", {
