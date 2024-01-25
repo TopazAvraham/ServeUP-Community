@@ -1,0 +1,17 @@
+# Ignore node_modules directory
+node_modules
+
+# Ignore log files
+*.log
+later
+# Ignore build output
+dist/
+build/
+out/
+
+# Ignore editor-specific files
+.vscode/
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+serveup-bucket-access.json
