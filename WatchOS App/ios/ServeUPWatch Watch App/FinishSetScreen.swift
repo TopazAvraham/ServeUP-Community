@@ -3,6 +3,9 @@ import SwiftUI
 
 struct FinishSetScreen: View {
     @EnvironmentObject var sharedData: SharedData
+    @StateObject var watchConnector = WatchToiOSConnector()
+    @StateObject var opponentDetails = OpponentDetails.shared
+  
     @State private var navigateToLiveCheck = false
     @State private var navigateToFinishCheck = false
     @State private var showAlert = false
@@ -43,7 +46,7 @@ struct FinishSetScreen: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text(sharedData.player2Name)
+                Text(opponentDetails.opponentUsername)
                     .font(.system(size: 22, design: .rounded))
                     .fontWeight(.semibold)
                     .foregroundColor(Color.white)

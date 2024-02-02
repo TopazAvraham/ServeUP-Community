@@ -2,14 +2,17 @@
 import SwiftUI
 
 class SharedData: ObservableObject {
+  static let shared = SharedData()
+
     @Published var curSetPlayed: Int = 1
     @Published var setScores: [(player1: String, player2: String)] = [("0", "0"), ("0", "0"), ("0", "0")]
     @Published var player1CurSetScore: String = "0"
     @Published var player2CurSetScore: String = "0"
+    @Published var opponentDoneAPoint: Bool = false
     
-    @Published var player1Name: String = "Topaz Avraham"
-    @Published var player2Name: String = "Robert Kyosaki"
-    @Published var player2Pic: String = "IMG_4276"
+    @Published var player1Name: String = "Me"
+    @Published var player2Name: String = "get it from opponentDetails"
+    @Published var player2Pic: String = "get it from opponentDetails"
     @Published var isPlayer1Won = false
     
     @Published var setWinners: [Int] = [-1, -1, -1]   // Indices can be 1 or 2
@@ -17,7 +20,10 @@ class SharedData: ObservableObject {
  
 
 struct StartGameScreen: View {
-    @StateObject private var sharedData = SharedData()
+  @StateObject private var sharedData = SharedData.shared
+  @StateObject var watchConnector = WatchToiOSConnector()
+  @StateObject var opponentDetails = OpponentDetails.shared
+
 
     var body: some View {
         NavigationView {
@@ -26,7 +32,7 @@ struct StartGameScreen: View {
                     .frame(width: 90, height: 90)
                     .shadow(color: Color(red: 0.84, green: 1, blue: 0.27, opacity: 0.20), radius: 30, x: 0, y: 0)
                     .overlay(
-                        Image(sharedData.player2Pic)
+                      Image(uiImage: opponentDetails._opponentPicImage ?? UIImage())
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 90, height: 90)
@@ -35,7 +41,7 @@ struct StartGameScreen: View {
                     )
                     .offset(y: -13)
 
-                Text(sharedData.player2Name)
+              Text(opponentDetails.opponentUsername)
                     .font(.system(size: 25, design: .rounded))
                     .fontWeight(.semibold)
                     .multilineTextAlignment(.center)

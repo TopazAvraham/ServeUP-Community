@@ -3,6 +3,8 @@ import SwiftUI
 
 struct LiveGameScreen: View {
     @EnvironmentObject var sharedData: SharedData
+    @StateObject var watchConnector = WatchToiOSConnector()
+    @StateObject var opponentDetails = OpponentDetails.shared
     
     @State private var isGameStopScreenPressed = false
     @State private var isGameFinishedScreenPressed = false
@@ -51,15 +53,15 @@ struct LiveGameScreen: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text(sharedData.player2Name)
+                Text(opponentDetails.opponentUsername)
                     .font(.system(size: 22, design: .rounded))
                     .fontWeight(.semibold)
-                    .foregroundColor(Color(red: 0.84, green: 1, blue: 0.27))
+                    .foregroundColor(Color.white)
                     .frame(width: 200, height: 40)
                 Text(player2CurGameScore)
                     .font(.system(size: 48, design: .rounded))
                     .fontWeight(.semibold)
-                    .foregroundColor(Color(red: 0.84, green: 1, blue: 0.27))
+                    .foregroundColor(Color.white)
                     .frame(width: 200, height: 20)
 
                 
@@ -75,14 +77,16 @@ struct LiveGameScreen: View {
                 HStack {
                     Rectangle()
                       .fill(Color(red: 0.56, green: 0.56, blue: 0.58))
-                      .frame(width: 3, height: 12)
+                      .frame(width: 5, height: 16)
+                      .cornerRadius(3)
                       .onTapGesture {
                           stopFunc()}
                       .padding(.leading, 150)
                     
                     Rectangle()
                       .fill(Color(red: 0.56, green: 0.56, blue: 0.58))
-                      .frame(width: 3, height: 12)
+                      .frame(width: 5, height: 16)
+                      .cornerRadius(3)
                       .onTapGesture {
                           stopFunc()}
                       .padding(.leading, 1)
@@ -105,28 +109,32 @@ struct LiveGameScreen: View {
                 }
             
                 Rectangle()
-                  .frame(width: 320.00, height: 3.00)
+                  .frame(width: 190.00, height: 5.00)
                   .foregroundColor(Color.white)
+                  .cornerRadius(3)
 
                 HStack {
                     Rectangle()
                       .fill(Color(red: 0.56, green: 0.56, blue: 0.58))
-                      .frame(width: 3, height: 6)
-                      .rotationEffect(.degrees(-48.65))
+                      .frame(width: 5, height: 12)
+                      .cornerRadius(3)
+                      .rotationEffect(.degrees(-38))
                       .onTapGesture {
                           ViFunc()
                       }
-                      .padding(.leading, 150)
+                      .padding(.leading, 150)                      
+
                     
                     Rectangle()
                       .fill(Color(red: 0.56, green: 0.56, blue: 0.58))
-                      .frame(width: 3, height: 14)
+                      .frame(width: 5, height: 18)
+                      .cornerRadius(3)
                       .rotationEffect(.degrees(30))
                       .onTapGesture {
                           ViFunc()
                       }
                       .padding(.leading, -3)
-                      .padding(.top, -5.5)
+                      .padding(.top, -1.7)
                 }
                 .onTapGesture {
                     ViFunc()
@@ -159,24 +167,43 @@ struct LiveGameScreen: View {
                 Text(player1CurGameScore)
                     .font(.system(size: 48, design: .rounded))
                     .fontWeight(.semibold)
-                    .foregroundColor(Color.white)
+                    .foregroundColor(Color(red: 0.84, green: 1, blue: 0.27))
                     .frame(width: 200, height: 26)
                 
                 Text(" Me")
                     .font(.system(size: 22, design: .rounded))
                     .fontWeight(.semibold)
-                    .foregroundColor(Color.white)
+                    .foregroundColor(Color(red: 0.84, green: 1, blue: 0.27))
                     .frame(width: 200, height: 30)
             }
+            .onAppear {
+                            NotificationCenter.default.addObserver(
+                                forName: NSNotification.Name("IncrementPlayer2CurGameScore"),
+                                object: nil,
+                                queue: .main
+                            ) { _ in
+                                IncrementPlayer2CurGameScore()
+                            }
+                        }
+                        .onDisappear {
+                            NotificationCenter.default.removeObserver(
+                                self,
+                                name: NSNotification.Name("IncrementPlayer2CurGameScore"),
+                                object: nil
+                            )
+                        }
             .padding(.horizontal, 20)
             .background(Color(red: 22/255, green: 37/255, blue: 41/255))
             .gesture(
                 DragGesture()
                     .onEnded { gesture in
-                        if gesture.translation.width < 0 { // slide left
+                        if gesture.translation.width > 0 { // slide right
                             IncrementPlayer1CurGameScore()
-                        } else if gesture.translation.width > 0 { // slide right
+                          //notify the other watch
+                          sendPingToIos()
+                        } else if  watchConnector.opponentDoneAPoint{// slide left
                             IncrementPlayer2CurGameScore()
+                          //this function will be activated base on the notification fron other watch
                         }
                     }
             )
@@ -192,6 +219,7 @@ struct LiveGameScreen: View {
     }
     
     func IncrementPlayer2CurGameScore() {
+      print("08080808080808")
             // Increment the current game score based on tennis scoring
             switch player2CurGameScore {
             case "0", "15":
@@ -219,6 +247,7 @@ struct LiveGameScreen: View {
                 // If the score is already at game point, no further increment
                 break
             }
+            //sharedData.opponentDoneAPoint=false
         }
     
     
@@ -399,6 +428,10 @@ struct LiveGameScreen: View {
             }
         }
     }
+  
+  func sendPingToIos() {
+      watchConnector.sendPingToIos(ping: "1")
+  }
     
 }
 

@@ -2,6 +2,8 @@ import SwiftUI
 
 struct GameStopScreen: View {
     @EnvironmentObject var sharedData: SharedData
+  @StateObject var watchConnector = WatchToiOSConnector()
+  @StateObject var opponentDetails = OpponentDetails.shared
 
     func curSetResultsMe() -> String {
         return sharedData.player1CurSetScore
@@ -14,7 +16,7 @@ struct GameStopScreen: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text(sharedData.player2Name)
+                Text(opponentDetails.opponentUsername)
                     .font(.system(size: 22, design: .rounded))
                     .fontWeight(.semibold)
                     .foregroundColor(Color.white)
