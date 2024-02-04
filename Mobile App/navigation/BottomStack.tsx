@@ -10,6 +10,10 @@ import ActiveChat from "../assets/ActiveChat.svg";
 import InactiveChat from "../assets/InactiveChat.svg";
 import { KeyboardAvoidingView,Platform } from "react-native";
 import InactiveExplore from "../assets/InactiveExplore.svg";
+import ChatStackScreens from "./ChatStack";
+import EventsStackScreens from "./EventsStack";
+import SearchStackScreens from "./SearchStack";
+import ExploreStackScreens from "./ExploreStack";
 const BottomTab = createBottomTabNavigator();
 
 const BottomStackScreens: FC<{}> = ({ navigation }: any) => {
@@ -44,7 +48,7 @@ const BottomStackScreens: FC<{}> = ({ navigation }: any) => {
           },
           tabBarActiveTintColor: "#D5FF45",
         }}
-        component={}
+        component={SearchStackScreens}
         name="Search"
       />
       <BottomTab.Screen
@@ -54,7 +58,7 @@ const BottomStackScreens: FC<{}> = ({ navigation }: any) => {
           },
           tabBarActiveTintColor: "#D5FF45",
         }}
-        component={}
+        component={EventsStackScreens}
         name="Events"
       />
       <BottomTab.Screen
@@ -64,7 +68,7 @@ const BottomStackScreens: FC<{}> = ({ navigation }: any) => {
           },
           tabBarActiveTintColor: "#D5FF45",
         }}
-        component={}
+        component={ExploreStackScreens}
         name="Explore"
       />
       <BottomTab.Screen
@@ -74,7 +78,7 @@ const BottomStackScreens: FC<{}> = ({ navigation }: any) => {
           },
           tabBarActiveTintColor: "#D5FF45",
         }}
-        component={}
+        component={ChatStackScreens}
         name="Chat"
       />
     </BottomTab.Navigator>
