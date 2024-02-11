@@ -3,7 +3,7 @@ import http from 'http';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import userRoute from './routes/userRoute.js';
-
+import tokenRoute from './routes/tokenRoute.js';  
 var server;
 async function startServer() {
 //create app
