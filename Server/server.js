@@ -22,6 +22,7 @@ mongoose.connect(process.env.DB_HOST);
   
   app.use(express.json());
   app.use('/api/Users/', userRoute);
+  app.use('/api/tokens/', tokenRoute);
   
   server.listen(3000, () => {
     console.log('Server is running on port 3000 http://localhost:3000');
