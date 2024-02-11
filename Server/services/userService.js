@@ -26,4 +26,22 @@ const createUser = async (username, password,email,displayName, profilePic,age, 
     
 };
 
-export default {createUser};
+
+
+
+const updateUserInfo = async (username,updatedInfo)=>{
+  try {
+    const user = await UserModel.findOne({ username });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    await UserModel.updateOne({ username }, { $set: updatedInfo });
+    const updatedUser = await getFullUserDetails(username);
+    return updatedUser;
+  } catch (error) {
+    return { error: error.message, status: 500 };
+  }
+}
+
+export default {createUser, updateUserInfo};
