@@ -147,5 +147,14 @@ const styles = StyleSheet.create({
     color: "#000",
     fontSize: 14,
   },
+  rejectBtn: {
+    height: 32,
+    backgroundColor: "#808080",
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
 });
 export default styles;
