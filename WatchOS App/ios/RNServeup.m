@@ -45,9 +45,37 @@ RCT_EXPORT_METHOD (addEvent: (NSString *)name location: (NSString *)location)
   
   if ([name isEqualToString:@"new"] && [location isEqualToString:@"operation"]) {
     Operation *operation = [Operation shared];
-    [operation sendMoveToStartToWatch];
+    //[operation sendMoveToStartToWatch];
     
   } else {
+    
+    if ([name isEqualToString:@"playAnotherSet"] && [location isEqualToString:@"Navigation"]){
+      Operation *operation = [Operation shared];
+      [operation sendplayAnotherSetToWatch];
+      return;
+    }
+    if ([name isEqualToString:@"submitGame"] && [location isEqualToString:@"Navigation"]){
+      Operation *operation = [Operation shared];
+      [operation sendsubmitGameToWatch];
+      return;
+    }
+    if ([name isEqualToString:@"vi"] && [location isEqualToString:@"Navigation"]){
+      Operation *operation = [Operation shared];
+      [operation sendviToWatch];
+      return;
+    }
+    if ([name isEqualToString:@"pause"] && [location isEqualToString:@"Navigation"]){
+      Operation *operation = [Operation shared];
+      [operation sendpauseToWatch];
+      return;
+    }
+    if ([name isEqualToString:@"continuePlay"] && [location isEqualToString:@"Navigation"]){
+      Operation *operation = [Operation shared];
+      [operation sendcontinuePlayToWatch];
+      return;
+    }
+    
+    
     if([name isEqualToString:@"inc"] && [location isEqualToString:@"score"]){
       Operation *operation = [Operation shared];
       [operation sendIncScoreToWatch];
@@ -58,7 +86,7 @@ RCT_EXPORT_METHOD (addEvent: (NSString *)name location: (NSString *)location)
 
       liveGameConnector.opponentUsername = name;
       liveGameConnector.opponentPic = location;
-
+      [operation sendMoveToStartToWatch];
       [operation sendDetailsToWatch];
     }
     
@@ -73,17 +101,50 @@ RCT_EXPORT_METHOD (addEvent: (NSString *)name location: (NSString *)location)
 RCT_EXPORT_METHOD(findEvents: (RCTResponseSenderBlock)callback)
 {
   LiveGameConnector *liveGameConnector = [LiveGameConnector shared];
+  
+  if ([liveGameConnector.pingPoint isEqualToString:@"1"]) {
+    callback(@[liveGameConnector.pingPoint]);
+    liveGameConnector.pingPoint = @"0";
+    return;
+  }
+  
+  
+  if (![liveGameConnector.playAnotherSet isEqualToString:@"false"]) {
+    callback(@[liveGameConnector.playAnotherSet]);
+    [liveGameConnector cleanAllNavigation];
+    return;
+  }
+  if (![liveGameConnector.submitGame isEqualToString:@"false"]) {
+    callback(@[liveGameConnector.submitGame]);
+    [liveGameConnector cleanAllNavigation];
+    return;
+  }
+  if (![liveGameConnector.vi isEqualToString:@"false"]) {
+    callback(@[liveGameConnector.vi]);
+    [liveGameConnector cleanAllNavigation];
+    return;
+  }
+  if (![liveGameConnector.pause isEqualToString:@"false"]) {
+    callback(@[liveGameConnector.pause]);
+    [liveGameConnector cleanAllNavigation];
+    return;
+  }
+  if (![liveGameConnector.continuePlay isEqualToString:@"false"]) {
+    callback(@[liveGameConnector.continuePlay]);
+    [liveGameConnector cleanAllNavigation];
+    return;
+  }
+  
  
   if (![liveGameConnector.finalGameResult isEqualToString:@"0-0,0-0,0-0"]) {
     callback(@[liveGameConnector.finalGameResult]);
+    [liveGameConnector cleanAllData];
+    return;
   } else {
-    if ([liveGameConnector.pingPoint isEqualToString:@"1"]) {
-      callback(@[liveGameConnector.pingPoint]);
-      liveGameConnector.pingPoint = @"0";
-    } else {
-      callback(@[liveGameConnector.opponentUsername]);
-    }
+    callback(@[liveGameConnector.opponentUsername]);
   }
+    
+  
 }
 
 @end

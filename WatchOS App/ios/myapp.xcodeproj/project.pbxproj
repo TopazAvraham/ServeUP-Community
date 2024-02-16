@@ -32,6 +32,7 @@
 		7E32F67F2B20C56A00A9E820 /* OpponentDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E32F67E2B20C56A00A9E820 /* OpponentDetails.swift */; };
 		7E53DBE72B26534600513DF2 /* RNEventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E53DBE52B26534600513DF2 /* RNEventEmitter.swift */; };
 		7E53DBE82B26534600513DF2 /* RNEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E53DBE62B26534600513DF2 /* RNEventEmitter.m */; };
+		7EBBB0D42B307467002EF4C0 /* NavigationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBB0D32B307467002EF4C0 /* NavigationTracker.swift */; };
 		96905EF65AED1B983A6B3ABC /* libPods-myapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-myapp.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
@@ -93,6 +94,7 @@
 		7E32F67E2B20C56A00A9E820 /* OpponentDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpponentDetails.swift; sourceTree = "<group>"; };
 		7E53DBE52B26534600513DF2 /* RNEventEmitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNEventEmitter.swift; sourceTree = "<group>"; };
 		7E53DBE62B26534600513DF2 /* RNEventEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNEventEmitter.m; sourceTree = "<group>"; };
+		7EBBB0D32B307467002EF4C0 /* NavigationTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTracker.swift; sourceTree = "<group>"; };
 		846831C1CCA241AA9D00FF71 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "myapp/noop-file.swift"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = myapp/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 		7E32F6572B1CFEF600A9E820 /* ServeUPWatch Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				7EBBB0D32B307467002EF4C0 /* NavigationTracker.swift */,
 				7E2114862B2907A50085B9BC /* StartGameScreen.swift */,
 				7E2DCDC52B28C9890099A5E8 /* OpenerScreen.swift */,
 				7E2114912B2910ED0085B9BC /* FinishedGameScreen.swift */,
@@ -165,6 +168,7 @@
 				7E32F67E2B20C56A00A9E820 /* OpponentDetails.swift */,
 				7E32F6772B1E8E6E00A9E820 /* WatchToiOSConnector.swift */,
 				7E32F65A2B1CFEF600A9E820 /* ContentView.swift */,
+				83CBBA001A601CBA00E9B192 /* Products */,
 				7E32F65C2B1CFEFA00A9E820 /* Assets.xcassets */,
 				7E32F65E2B1CFEFA00A9E820 /* Preview Content */,
 			);
@@ -193,7 +197,6 @@
 				13B07FAE1A68108700A75B9A /* myapp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				7E32F6572B1CFEF600A9E820 /* ServeUPWatch Watch App */,
-				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
 				D7E4C46ADA2E9064B798F356 /* ExpoModulesProviders */,
@@ -210,6 +213,7 @@
 				7E32F6562B1CFEF600A9E820 /* ServeUPWatch Watch App.app */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		92DBD88DE9BF7D494EA9DA96 /* myapp */ = {
@@ -476,6 +480,7 @@
 				7E32F67F2B20C56A00A9E820 /* OpponentDetails.swift in Sources */,
 				7E32F6792B1E8E6E00A9E820 /* WatchToiOSConnector.swift in Sources */,
 				7E32F6592B1CFEF600A9E820 /* ServeUPWatchApp.swift in Sources */,
+				7EBBB0D42B307467002EF4C0 /* NavigationTracker.swift in Sources */,
 				7E2114952B2910ED0085B9BC /* FinishedGameScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
