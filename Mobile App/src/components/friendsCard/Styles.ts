@@ -16,25 +16,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#D5FF45",
   },
-  multiLineInputField: {
-    height: 138,
-    borderRadius: 16,
-    borderColor: "#636363",
-    borderWidth: 1,
-    marginBottom: 19,
-    zIndex: -1000,
-    paddingHorizontal: 8,
-    paddingTop: 16,
-  },
-  inputField: {
-    height: 64,
-    borderRadius: 16,
-    borderColor: "#636363",
-    borderWidth: 1,
-    justifyContent: "center",
-    marginBottom: 19,
-    zIndex: -1000,
-  },
   inputFieldText: {
     fontFamily: "medium",
     fontSize: 16,
@@ -73,23 +54,6 @@ const styles = StyleSheet.create({
 
   contentContainerStyle: {
     flex: 1,
-  },
-  mainView: {
-    backgroundColor: "#162529",
-    flexDirection: "row",
-    height: 82,
-    paddingTop: 8,
-    paddingBottom: 12,
-    justifyContent: "space-between",
-    marginTop: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: "#343434",
-    alignItems: "center",
-  },
-  searchBarContainer: {
-    flexDirection: "row",
-    paddingHorizontal: 16,
-    alignItems: "center",
   },
   ImageBackground: {
     height: 55,
@@ -132,15 +96,6 @@ const styles = StyleSheet.create({
   },
   cardTextContainer: {
     marginLeft: 21,
-  },
-  playBtn: {
-    height: 32,
-    backgroundColor: "#D5FF45",
-    borderRadius: 8,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingLeft: 10,
-    paddingRight: 10,
   },
   playBtnText: {
     fontFamily: "medium",
