@@ -5,7 +5,8 @@ struct LiveGameScreen: View {
     @EnvironmentObject var sharedData: SharedData
     @StateObject var watchConnector = WatchToiOSConnector()
     @StateObject var opponentDetails = OpponentDetails.shared
-    
+    @StateObject var navigationTracker = NavigationTracker()
+
     @State private var isGameStopScreenPressed = false
     @State private var isGameFinishedScreenPressed = false
     @State private var CheckSetScreen = false
@@ -80,7 +81,11 @@ struct LiveGameScreen: View {
                       .frame(width: 5, height: 16)
                       .cornerRadius(3)
                       .onTapGesture {
-                          stopFunc()}
+                        stopFunc()
+                        if(isGameStopScreenPressed){
+                          sendStopToIos()
+                        }
+                      }
                       .padding(.leading, 150)
                     
                     Rectangle()
@@ -88,11 +93,18 @@ struct LiveGameScreen: View {
                       .frame(width: 5, height: 16)
                       .cornerRadius(3)
                       .onTapGesture {
-                          stopFunc()}
+                        stopFunc()
+                        if(isGameStopScreenPressed){
+                          sendStopToIos()
+                        }
+                      }
                       .padding(.leading, 1)
                 }
                 .onTapGesture {
                     stopFunc()
+                    if(isGameStopScreenPressed){
+                      sendStopToIos()
+                    }
                 }
                 .alert(isPresented: $showAlert) {
                     Alert(
@@ -101,12 +113,30 @@ struct LiveGameScreen: View {
                         dismissButton: .default(Text("OK"))
                     )
                 }
-                .sheet(isPresented: $isGameStopScreenPressed) {
-                    NavigationView {
-                        GameStopScreen()
+//                .sheet(isPresented: $isGameStopScreenPressed) {
+//                    NavigationView {
+//                        GameStopScreen()
+//                                        .navigationBarHidden(true)
+//                    }
+//                }
+                .onAppear {
+                                // Observe the notification to move to the start screen
+                                NotificationCenter.default.addObserver(
+                                    forName: NSNotification.Name("pause"),
+                                    object: nil,
+                                    queue: .main
+                                ) { _ in
+                                    // Set shouldNavigate to true to trigger navigation
+                                    navigationTracker.pause = true
+                                  isGameStopScreenPressed=true
+                                }
+                            }
+                            .sheet(isPresented: $isGameStopScreenPressed) {
+                                NavigationView {
+                                  GameStopScreen()
                                         .navigationBarHidden(true)
-                    }
-                }
+                                }
+                            }
             
                 Rectangle()
                   .frame(width: 190.00, height: 5.00)
@@ -202,7 +232,7 @@ struct LiveGameScreen: View {
                           //notify the other watch
                           sendPingToIos()
                         } else if  watchConnector.opponentDoneAPoint{// slide left
-                            IncrementPlayer2CurGameScore()
+                           // IncrementPlayer2CurGameScore()
                           //this function will be activated base on the notification fron other watch
                         }
                     }
@@ -432,7 +462,11 @@ struct LiveGameScreen: View {
   func sendPingToIos() {
       watchConnector.sendPingToIos(ping: "1")
   }
-    
+  
+  func sendStopToIos() {
+      watchConnector.sendpauseToIos(pause: "pause")
+  }
+  
 }
 
 struct LiveGameScreen_Previews: PreviewProvider {
