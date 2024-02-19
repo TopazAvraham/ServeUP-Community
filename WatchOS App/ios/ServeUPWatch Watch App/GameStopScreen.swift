@@ -4,6 +4,7 @@ struct GameStopScreen: View {
     @EnvironmentObject var sharedData: SharedData
   @StateObject var watchConnector = WatchToiOSConnector()
   @StateObject var opponentDetails = OpponentDetails.shared
+  @StateObject var navigationTracker = NavigationTracker()
 
     func curSetResultsMe() -> String {
         return sharedData.player1CurSetScore

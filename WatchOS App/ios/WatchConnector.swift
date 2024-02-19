@@ -38,8 +38,41 @@ class WatchConnector: NSObject, WCSessionDelegate, ObservableObject {
     print(message)
     let pingValue = message["ping"]
     let finalScoreValue = message["finalScore"]
+    
+    let playAnotherSetValue = message["playAnotherSet"]
+    let submitGameValue = message["submitGame"]
+    let viValue = message["vi"]
+    let pauseValue = message["pause"]
+    let continuePlayValue = message["continuePlay"]
+
     let liveGameConnector = LiveGameConnector.shared
 
+    if playAnotherSetValue != nil {
+      liveGameConnector.playAnotherSet = "playAnotherSet"
+      print(playAnotherSetValue as! String)
+    }
+    
+    if submitGameValue != nil {
+      liveGameConnector.submitGame = "submitGame"
+      print(submitGameValue as! String)
+    }
+    
+    if viValue != nil {
+      liveGameConnector.vi = "vi"
+      print(viValue as! String)
+    }
+    
+    if pauseValue != nil {
+      liveGameConnector.pause = "pause"
+      print(pauseValue as! String)
+    }
+    
+    if continuePlayValue != nil {
+      liveGameConnector.continuePlay = "continuePlay"
+      print(continuePlayValue as! String)
+    }
+    
+    
     if pingValue != nil {
       liveGameConnector.pingPoint = pingValue as! String
       print(pingValue as! String)
@@ -50,8 +83,6 @@ class WatchConnector: NSObject, WCSessionDelegate, ObservableObject {
       print(finalScoreValue as! String)
     }
     
-    //AutoFunc.sharedInstance.activateFunction()
-    //Flag().sent()
     RNEventEmitter.emitter.sendEvent(withName: "onSent", body: ["Test payload":"Test payload"])
   }
   
@@ -96,4 +127,56 @@ class WatchConnector: NSObject, WCSessionDelegate, ObservableObject {
       print ("session is not reachable")
     }
   }
+  
+  
+  
+  func sendplayAnotherSetToWatch(){
+    if session.isReachable{
+      let data:[String: Any] = ["playAnotherSet" : "playAnotherSet"]
+      session.sendMessage(data, replyHandler: nil)
+    }else{
+      print ("session is not reachable")
+    }
+  }
+  
+  func sendsubmitGameToWatch(){
+    if session.isReachable{
+      let data:[String: Any] = ["submitGame" : "submitGame"]
+      session.sendMessage(data, replyHandler: nil)
+    }else{
+      print ("session is not reachable")
+    }
+  }
+  func sendviToWatch(){
+    if session.isReachable{
+      let data:[String: Any] = ["vi" : "vi"]
+      session.sendMessage(data, replyHandler: nil)
+    }else{
+      print ("session is not reachable")
+    }
+  }
+  func sendpauseToWatch(){
+    if session.isReachable{
+      let data:[String: Any] = ["pause" : "pause"]
+      session.sendMessage(data, replyHandler: nil)
+    }else{
+      print ("session is not reachable")
+    }
+  }
+  func sendcontinuePlayToWatch(){
+    if session.isReachable{
+      let data:[String: Any] = ["continuePlay" : "continuePlay"]
+      session.sendMessage(data, replyHandler: nil)
+    }else{
+      print ("session is not reachable")
+    }
+    
+    
+  }
+  
+  
+  
+  
+  
+  
 }

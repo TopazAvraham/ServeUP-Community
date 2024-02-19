@@ -5,6 +5,8 @@ struct FinishSetScreen: View {
     @EnvironmentObject var sharedData: SharedData
     @StateObject var watchConnector = WatchToiOSConnector()
     @StateObject var opponentDetails = OpponentDetails.shared
+    @StateObject var navigationTracker = NavigationTracker()
+
   
     @State private var navigateToLiveCheck = false
     @State private var navigateToFinishCheck = false
