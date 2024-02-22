@@ -53,5 +53,35 @@ class Operation : NSObject, ObservableObject{
     print("77777777777777777")//#########################################################
     Operation.watchConnector.sendMoveToStartToWatch()
   }
+  
+  
+  @objc
+  func sendplayAnotherSetToWatch(){
+    let Operation = Operation.shared
+    Operation.watchConnector.sendplayAnotherSetToWatch()
+  }
+  @objc
+  func sendsubmitGameToWatch(){
+    let Operation = Operation.shared
+    Operation.watchConnector.sendsubmitGameToWatch()
+  }
+  @objc
+  func sendviToWatch(){
+    let Operation = Operation.shared
+    Operation.watchConnector.sendviToWatch()
+  }
+  @objc
+  func sendpauseToWatch(){
+    let Operation = Operation.shared
+    Operation.watchConnector.sendpauseToWatch()
+  }
+  @objc
+  func sendcontinuePlayToWatch(){
+    let Operation = Operation.shared
+    Operation.watchConnector.sendcontinuePlayToWatch()
+  }
+  
+  
+  
 }
 

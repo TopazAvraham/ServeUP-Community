@@ -1,11 +1,15 @@
 import SwiftUI
 class AppViewModel: ObservableObject {
-    @Published var shouldNavigate = false
-}
+  @Published var shouldNavigate = false
 
+  }
 struct OpenerScreen: View {
   @StateObject var watchConnector = WatchToiOSConnector()
   @StateObject var appViewModel = AppViewModel()
+  @StateObject var navigationTracker = NavigationTracker()
+
+
+  
   var body: some View {
       NavigationView {
           VStack(spacing: 0) {
@@ -50,15 +54,34 @@ struct OpenerScreen: View {
                   .multilineTextAlignment(.center)
                   .foregroundColor(Color.white)
                   .padding(.horizontal, 20)
-                  .frame(width: 200, height: 30)                    .fixedSize(horizontal: false, vertical: true)
+                  .frame(width: 200, height: 30)                    
+                  .fixedSize(horizontal: false, vertical: true)
                   .minimumScaleFactor(0.9)
                   .lineLimit(2)
           }
+          
           .padding(.horizontal, 10)
           .background(Color(red: 22/255, green: 37/255, blue: 41/255))
-      }
-  }
-}
+          .onAppear {
+                          // Observe the notification to move to the start screen
+                          NotificationCenter.default.addObserver(
+                              forName: NSNotification.Name("MoveToStartScreen"),
+                              object: nil,
+                              queue: .main
+                          ) { _ in
+                              // Set shouldNavigate to true to trigger navigation
+                              appViewModel.shouldNavigate = true
+                          }
+                      }
+                      .sheet(isPresented: $appViewModel.shouldNavigate) {
+                          NavigationView {
+                              StartGameScreen()
+                                  .navigationBarHidden(true)
+                          }
+                      }
+                  }
+              }
+          }
 
 #Preview {
   OpenerScreen()
