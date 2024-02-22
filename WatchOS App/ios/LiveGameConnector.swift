@@ -22,7 +22,14 @@ class LiveGameConnector :NSObject, ObservableObject {
   @Published var _opponentPic: String
   @Published var _finalGameResult: String
   @Published var _pingPoint: String
+  
+  @Published var _playAnotherSet: String
+  @Published var _submitGame: String
+  @Published var _vi: String
+  @Published var _pause: String
+  @Published var _continuePlay: String
 
+  
     // Private constructor with default values
   @objc
   private override init() {
@@ -31,6 +38,12 @@ class LiveGameConnector :NSObject, ObservableObject {
         _opponentPic = "no opponent pic yet"
         _finalGameResult = "0-0,0-0,0-0"
         _pingPoint = "0"
+    
+        _playAnotherSet = "false"
+        _submitGame = "false"
+        _vi = "false"
+        _pause = "false"
+        _continuePlay = "false"
     }
   
 
@@ -77,4 +90,82 @@ class LiveGameConnector :NSObject, ObservableObject {
             _pingPoint = newValue
         }
     }
+  // Getter and Setter for playAnotherSet
+  @objc
+  var playAnotherSet: String {
+      get {
+          return _playAnotherSet
+      }
+      set {
+          _playAnotherSet = newValue
+      }
+  }
+
+  // Getter and Setter for submitGame
+  @objc
+  var submitGame: String {
+      get {
+          return _submitGame
+      }
+      set {
+          _submitGame = newValue
+      }
+  }
+
+  // Getter and Setter for vi
+  @objc
+  var vi: String {
+      get {
+          return _vi
+      }
+      set {
+          _vi = newValue
+      }
+  }
+
+  // Getter and Setter for pause
+  @objc
+  var pause: String {
+      get {
+          return _pause
+      }
+      set {
+          _pause = newValue
+      }
+  }
+
+  // Getter and Setter for continuePlay
+  @objc
+  var continuePlay: String {
+      get {
+          return _continuePlay
+      }
+      set {
+          _continuePlay = newValue
+      }
+  }
+
+  // Function to reset all properties to their initial values
+  @objc
+  func cleanAllData() {
+      opponentUsername = "no opponent yet"
+      opponentPic = "no opponent pic yet"
+      finalGameResult = "0-0,0-0,0-0"
+      pingPoint = "0"
+      playAnotherSet = "false"
+      submitGame = "false"
+      vi = "false"
+      pause = "false"
+      continuePlay = "false"
+  }
+  
+  // Function to reset all Navigation properties to their initial values
+  @objc
+  func cleanAllNavigation() {
+    playAnotherSet = "false"
+    submitGame = "false"
+    vi = "false"
+    pause = "false"
+    continuePlay = "false"
+  }
 }

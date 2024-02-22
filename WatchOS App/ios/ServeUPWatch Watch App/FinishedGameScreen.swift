@@ -5,7 +5,13 @@ struct FinishedGameScreen: View {
   @StateObject var watchConnector = WatchToiOSConnector()
   @StateObject var opponentDetails = OpponentDetails.shared
   @State private var isSubmitButtonTapped = false
+  @StateObject var navigationTracker = NavigationTracker()
 
+  
+  func cleanAllData(){
+    sharedData.cleanAllData()
+    opponentDetails.cleanAllData()
+  }
   
   func SubmitToIos() {
     //take the result from SharedData
@@ -61,6 +67,7 @@ struct FinishedGameScreen: View {
                              } else {
                                  Button(action: {
                                      SubmitToIos()
+                                   cleanAllData()
                                  }) {
                                      Text("Submit Results")
                                          .font(.system(size: 15, design: .rounded))

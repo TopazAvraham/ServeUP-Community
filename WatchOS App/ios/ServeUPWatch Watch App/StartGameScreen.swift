@@ -16,6 +16,20 @@ class SharedData: ObservableObject {
     @Published var isPlayer1Won = false
     
     @Published var setWinners: [Int] = [-1, -1, -1]   // Indices can be 1 or 2
+  
+  func cleanAllData() {
+          // Reset properties to their initial values
+          curSetPlayed = 1
+          setScores = [("0", "0"), ("0", "0"), ("0", "0")]
+          player1CurSetScore = "0"
+          player2CurSetScore = "0"
+          opponentDoneAPoint = false
+          player1Name = "Me"
+          player2Name = "get it from opponentDetails"
+          player2Pic = "get it from opponentDetails"
+          isPlayer1Won = false
+          setWinners = [-1, -1, -1]
+      }
 }
  
 
@@ -23,6 +37,7 @@ struct StartGameScreen: View {
   @StateObject private var sharedData = SharedData.shared
   @StateObject var watchConnector = WatchToiOSConnector()
   @StateObject var opponentDetails = OpponentDetails.shared
+  @StateObject var navigationTracker = NavigationTracker()
 
 
     var body: some View {
