@@ -66,4 +66,11 @@ class OpponentDetails :NSObject, ObservableObject {
           }
       }
   
+  func cleanAllData() {
+          // Reset properties to their initial values
+          opponentUsername = "no opponent yet"
+          opponentPic = "no opponent pic yet"
+          _opponentPicImage = nil
+      }
+  
 }
