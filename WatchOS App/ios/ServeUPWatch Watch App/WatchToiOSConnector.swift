@@ -14,6 +14,7 @@ class WatchToiOSConnector: NSObject, WCSessionDelegate, ObservableObject {
   var session: WCSession
   let sharedData = SharedData.shared
   @Published var opponentDoneAPoint: Bool = false
+  
 
 
   init(session: WCSession = .default) {
@@ -30,12 +31,9 @@ class WatchToiOSConnector: NSObject, WCSessionDelegate, ObservableObject {
 
   func sendPingToIos(ping :String){
     if session.isReachable{
-      print (ping)//##############################################################################################
-      print("222222222222222222222222222222")//#################################################################################
       let data:[String: Any] = [
         "ping" : ping
       ]
-      print (data) //##############################################################################################
       session.sendMessage(data, replyHandler: nil)
     }else{
       print ("session is not reachable")
@@ -108,7 +106,7 @@ class WatchToiOSConnector: NSObject, WCSessionDelegate, ObservableObject {
   
   
   func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
-      print(message)
+      //print(message)
 
       if let playAnotherSet = message["playAnotherSet"] as? String {
           DispatchQueue.main.async {
@@ -151,11 +149,13 @@ class WatchToiOSConnector: NSObject, WCSessionDelegate, ObservableObject {
           }
       } else {
           if let incScore = message["IncScore"] as? String {
-              print("inc on my watch the opponent's score!!!")
+            
               DispatchQueue.main.async {
                   NotificationCenter.default.post(name: NSNotification.Name("IncrementPlayer2CurGameScore"), object: nil)
                   self.opponentDoneAPoint = true
-              }
+                }
+              
+         
           } else {
               if let userName = message["username"] as? String,
                  let userPic = message["pic"] as? String {
@@ -167,74 +167,5 @@ class WatchToiOSConnector: NSObject, WCSessionDelegate, ObservableObject {
       }
   }
 
-  
-//  func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-//    print(message)
-//    
-//    if message["playAnotherSet"] is String {
-//      DispatchQueue.main.async {
-//        NotificationCenter.default.post(name: NSNotification.Name("playAnotherSet"), object: nil)
-//        return
-//      }
-//    }
-//    if message["submitGame"] is String {
-//      DispatchQueue.main.async {
-//        NotificationCenter.default.post(name: NSNotification.Name("submitGame"), object: nil)
-//        return
-//      }
-//    }
-//    if message["vi"] is String {
-//      DispatchQueue.main.async {
-//        NotificationCenter.default.post(name: NSNotification.Name("vi"), object: nil)
-//        return
-//      }
-//    }
-//    if message["pause"] is String {
-//      DispatchQueue.main.async {
-//        NotificationCenter.default.post(name: NSNotification.Name("pause"), object: nil)
-//        return
-//      }
-//    }
-//    if message["continuePlay"] is String {
-//      DispatchQueue.main.async {
-//        NotificationCenter.default.post(name: NSNotification.Name("continuePlay"), object: nil)
-//        return
-//      }
-//    }
-//    
-//      
-//    
-//    if message["MoveToStart"] is String {
-//      //move to start screen from the opener screen - intent
-//      DispatchQueue.main.async {
-//          // Call the method on the main thread
-//          NotificationCenter.default.post(name: NSNotification.Name("MoveToStartScreen"), object: nil)
-//      }
-//      
-//    }else{
-//      if message["IncScore"] is String {
-//        print("inc on my watch the opponent's score!!!")
-//        
-//        // Use DispatchQueue.main.async to switch to the main thread
-//                   DispatchQueue.main.async {
-//                       // Call the method on the main thread
-//                       NotificationCenter.default.post(name: NSNotification.Name("IncrementPlayer2CurGameScore"), object: nil)
-//                       self.opponentDoneAPoint = true
-//                   }
-//        
-//        //self.opponentDoneAPoint = false
-//      }else {
-//        let userName = message["username"]
-//        let userPic = message["pic"]
-//        
-//        let opponentDetails = OpponentDetails.shared
-//        opponentDetails.opponentUsername = userName as! String
-//        opponentDetails.opponentPic = userPic as! String
-//      }
-//      
-//    }
-//    
-//    }
-  
   
 }

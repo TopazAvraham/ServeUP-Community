@@ -9,8 +9,12 @@ struct FinishSetScreen: View {
 
   
     @State private var navigateToLiveCheck = false
+   // @State private var useOfNavigationLink = false
     @State private var navigateToFinishCheck = false
+
     @State private var showAlert = false
+
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
 
     func resultsMe() -> String {
@@ -46,7 +50,6 @@ struct FinishSetScreen: View {
     
     
     var body: some View {
-        NavigationView {
             VStack {
                 Text(opponentDetails.opponentUsername)
                     .font(.system(size: 22, design: .rounded))
@@ -73,9 +76,13 @@ struct FinishSetScreen: View {
                 .hidden()
 
                 Button(action: {
+                    sendplayAnotherSetToIos()
                     sharedData.player1CurSetScore = "0"
                     sharedData.player2CurSetScore = "0"
-                    navigateToLiveCheck = true
+                    //navigateToLiveCheck = true
+                  presentationMode.wrappedValue.dismiss()
+
+
                 }) {
                     Text("Play Another Set")
                         .font(.system(size: 15, design: .rounded))
@@ -99,6 +106,9 @@ struct FinishSetScreen: View {
 
                 Button(action: {
                     SubmitGameFunc()
+                  if (navigateToFinishCheck == true){
+                    sendsubmitGameToIos()
+                  }
                 }) {
                     Text("Submit Game")
                         .font(.system(size: 15, design: .rounded))
@@ -133,8 +143,40 @@ struct FinishSetScreen: View {
             }
             .padding(.horizontal, 20)
             .background(Color(red: 22/255, green: 37/255, blue: 41/255))
-        }
+          
+        
+        .onAppear {
+                        // Observe the notification to move to the start screen
+                        NotificationCenter.default.addObserver(
+                            forName: NSNotification.Name("playAnotherSet"),
+                            object: nil,
+                            queue: .main
+                        ) { _ in
+                            // Set shouldNavigate to true to trigger navigation
+                          sharedData.player1CurSetScore = "0"
+                          sharedData.player2CurSetScore = "0"
+                          //navigateToLiveCheck = true
+                          presentationMode.wrappedValue.dismiss()
+
+                        }
+          
+                        NotificationCenter.default.addObserver(
+                            forName: NSNotification.Name("submitGame"),
+                            object: nil,
+                            queue: .main
+                        ) { _ in
+                            // Set shouldNavigate to true to trigger navigation
+                          navigateToFinishCheck = true
+                        }
+                    }
     }
+  func sendplayAnotherSetToIos() {
+    watchConnector.sendplayAnotherSetToIos(playAnotherSet : "playAnotherSet")
+  }
+  func sendsubmitGameToIos() {
+      watchConnector.sendsubmitGameToIos(submitGame: "submitGame")
+
+  }
 }
 
 struct FinishSetScreen_Previews: PreviewProvider {

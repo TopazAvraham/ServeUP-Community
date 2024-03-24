@@ -29,6 +29,7 @@ class SharedData: ObservableObject {
           player2Pic = "get it from opponentDetails"
           isPlayer1Won = false
           setWinners = [-1, -1, -1]
+    
       }
 }
  
@@ -89,7 +90,9 @@ struct StartGameScreen: View {
             .background(Color(red: 22/255, green: 37/255, blue: 41/255))
         }
         .environmentObject(sharedData)
+      
     }
+  
 }
 
 #Preview {
