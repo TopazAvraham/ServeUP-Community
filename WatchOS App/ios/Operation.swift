@@ -34,7 +34,6 @@ class Operation : NSObject, ObservableObject{
   func sendDetailsToWatch(){
     let Operation = Operation.shared
 
-    print("111111111111111111111111111111")//#########################################################
     Operation.watchConnector.sendDetailsToWatch()
   }
   
@@ -42,7 +41,6 @@ class Operation : NSObject, ObservableObject{
   func sendIncScoreToWatch(){
     let Operation = Operation.shared
 
-    print("444444444444444444444")//#########################################################
     Operation.watchConnector.sendIncScoreToWatch()
   }
   
@@ -50,7 +48,6 @@ class Operation : NSObject, ObservableObject{
   func sendMoveToStartToWatch(){
     let Operation = Operation.shared
 
-    print("77777777777777777")//#########################################################
     Operation.watchConnector.sendMoveToStartToWatch()
   }
   
@@ -80,8 +77,6 @@ class Operation : NSObject, ObservableObject{
     let Operation = Operation.shared
     Operation.watchConnector.sendcontinuePlayToWatch()
   }
-  
-  
   
 }
 

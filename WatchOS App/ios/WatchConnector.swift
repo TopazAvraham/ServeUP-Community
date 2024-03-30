@@ -35,7 +35,7 @@ class WatchConnector: NSObject, WCSessionDelegate, ObservableObject {
   
   
   func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-    print(message)
+    //print(message)
     let pingValue = message["ping"]
     let finalScoreValue = message["finalScore"]
     
@@ -49,38 +49,31 @@ class WatchConnector: NSObject, WCSessionDelegate, ObservableObject {
 
     if playAnotherSetValue != nil {
       liveGameConnector.playAnotherSet = "playAnotherSet"
-      print(playAnotherSetValue as! String)
     }
     
     if submitGameValue != nil {
       liveGameConnector.submitGame = "submitGame"
-      print(submitGameValue as! String)
     }
     
     if viValue != nil {
       liveGameConnector.vi = "vi"
-      print(viValue as! String)
     }
     
     if pauseValue != nil {
       liveGameConnector.pause = "pause"
-      print(pauseValue as! String)
     }
     
     if continuePlayValue != nil {
       liveGameConnector.continuePlay = "continuePlay"
-      print(continuePlayValue as! String)
     }
     
     
     if pingValue != nil {
       liveGameConnector.pingPoint = pingValue as! String
-      print(pingValue as! String)
 
     }
     if finalScoreValue != nil{
       liveGameConnector.finalGameResult = finalScoreValue as! String
-      print(finalScoreValue as! String)
     }
     
     RNEventEmitter.emitter.sendEvent(withName: "onSent", body: ["Test payload":"Test payload"])
@@ -88,11 +81,9 @@ class WatchConnector: NSObject, WCSessionDelegate, ObservableObject {
   
   
   func sendDetailsToWatch(){
-    print("222222222222222222222222222")//#########################################################
 
     let liveGameConnector = LiveGameConnector.shared
     if session.isReachable{
-      print("3333333333333333333333333")//#########################################################
 
       let data:[String: Any] = [
         "username" : liveGameConnector.opponentUsername,
@@ -104,10 +95,8 @@ class WatchConnector: NSObject, WCSessionDelegate, ObservableObject {
     }
   }
   func sendIncScoreToWatch(){
-    print("5555555555555555555")//#########################################################
 
     if session.isReachable{
-      print("666666666666666666")//#########################################################
 
       let data:[String: Any] = ["IncScore" : "IncScore"]
       session.sendMessage(data, replyHandler: nil)
@@ -116,10 +105,8 @@ class WatchConnector: NSObject, WCSessionDelegate, ObservableObject {
     }
   }
   func sendMoveToStartToWatch(){
-    print("88888888888888888")//#########################################################
 
     if session.isReachable{
-      print("999999999999999")//#########################################################
 
       let data:[String: Any] = ["MoveToStart" : "MoveToStart"]
       session.sendMessage(data, replyHandler: nil)
@@ -173,9 +160,6 @@ class WatchConnector: NSObject, WCSessionDelegate, ObservableObject {
     
     
   }
-  
-  
-  
   
   
   

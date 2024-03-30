@@ -37,14 +37,12 @@ struct ContentView: View {
 
             Button("ping point") {
                 // Handle button tap action here
-                print("ping point tapped!")
                 sendPingToIos()
             }
             .padding()
 
             Button("end game") {
                 // Handle button tap action here
-                print("end game tapped!")
                 sendFinalScoreToIos()
             }
             .padding()

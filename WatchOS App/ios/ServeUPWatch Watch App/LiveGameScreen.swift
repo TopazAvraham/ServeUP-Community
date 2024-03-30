@@ -11,13 +11,11 @@ struct LiveGameScreen: View {
     @State private var isGameFinishedScreenPressed = false
     @State private var CheckSetScreen = false
     @State private var CheckFinishedSet = false
-    @State private var showAlert = false  // Add this line
-
+    @State private var showAlert = false
     
     @State var player1CurGameScore = "0"
     @State var player2CurGameScore = "0"
 
-    
     func ViFunc() {
         //if the current set is the first there is no one who won a set so no winner yet
         if (sharedData.curSetPlayed == 1){
@@ -50,9 +48,9 @@ struct LiveGameScreen: View {
         self.isGameStopScreenPressed = true
     }
     
-    
+
+  
     var body: some View {
-        NavigationView {
             VStack {
                 Text(opponentDetails.opponentUsername)
                     .font(.system(size: 22, design: .rounded))
@@ -73,6 +71,7 @@ struct LiveGameScreen: View {
                         .foregroundColor(Color.gray)
                         .frame(width: 200, height: 5)
                         .padding(.trailing, 150)
+                        
                 }
                 
                 HStack {
@@ -113,12 +112,7 @@ struct LiveGameScreen: View {
                         dismissButton: .default(Text("OK"))
                     )
                 }
-//                .sheet(isPresented: $isGameStopScreenPressed) {
-//                    NavigationView {
-//                        GameStopScreen()
-//                                        .navigationBarHidden(true)
-//                    }
-//                }
+
                 .onAppear {
                                 // Observe the notification to move to the start screen
                                 NotificationCenter.default.addObserver(
@@ -151,6 +145,9 @@ struct LiveGameScreen: View {
                       .rotationEffect(.degrees(-38))
                       .onTapGesture {
                           ViFunc()
+                        if(isGameFinishedScreenPressed){
+                          sendviToIos()
+                        }
                       }
                       .padding(.leading, 150)                      
 
@@ -162,12 +159,18 @@ struct LiveGameScreen: View {
                       .rotationEffect(.degrees(30))
                       .onTapGesture {
                           ViFunc()
+                        if(isGameFinishedScreenPressed){
+                          sendviToIos()
+                        }
                       }
                       .padding(.leading, -3)
                       .padding(.top, -1.7)
                 }
                 .onTapGesture {
                     ViFunc()
+                  if(isGameFinishedScreenPressed){
+                    sendviToIos()
+                  }
                 }
                 .alert(isPresented: $showAlert) {
                     Alert(
@@ -176,12 +179,26 @@ struct LiveGameScreen: View {
                         dismissButton: .default(Text("OK"))
                     )
                 }
-                .sheet(isPresented: $isGameFinishedScreenPressed) {
-                    NavigationView {
-                        FinishedGameScreen()
+
+                .onAppear {
+                                // Observe the notification to move to the start screen
+                                NotificationCenter.default.addObserver(
+                                    forName: NSNotification.Name("vi"),
+                                    object: nil,
+                                    queue: .main
+                                ) { _ in
+                                    // Set shouldNavigate to true to trigger navigation
+                                    navigationTracker.vi = true
+                                    ViFunc()
+                                  //isGameFinishedScreenPressed=true
+                                }
+                            }
+                            .sheet(isPresented: $isGameFinishedScreenPressed) {
+                                NavigationView {
+                                  FinishedGameScreen()
                                         .navigationBarHidden(true)
                                 }
-                }
+                            }
                 
                 HStack {
                     Text(sharedData.player1CurSetScore)
@@ -207,21 +224,26 @@ struct LiveGameScreen: View {
                     .frame(width: 200, height: 30)
             }
             .onAppear {
-                            NotificationCenter.default.addObserver(
-                                forName: NSNotification.Name("IncrementPlayer2CurGameScore"),
-                                object: nil,
-                                queue: .main
-                            ) { _ in
-                                IncrementPlayer2CurGameScore()
-                            }
-                        }
-                        .onDisappear {
-                            NotificationCenter.default.removeObserver(
-                                self,
-                                name: NSNotification.Name("IncrementPlayer2CurGameScore"),
-                                object: nil
-                            )
-                        }
+              if (DupCleaner.hasAppeared == false){
+                NotificationCenter.default.addObserver(
+                    forName: NSNotification.Name("IncrementPlayer2CurGameScore"),
+                    object: nil,
+                    queue: .main
+                ) { _ in
+                    IncrementPlayer2CurGameScore()
+                }
+              }
+              DupCleaner.hasAppeared = true
+              
+              }
+              .onDisappear {
+                  NotificationCenter.default.removeObserver(
+                      self,
+                      name: NSNotification.Name("IncrementPlayer2CurGameScore"),
+                      object: nil
+                  )
+              }
+                        
             .padding(.horizontal, 20)
             .background(Color(red: 22/255, green: 37/255, blue: 41/255))
             .gesture(
@@ -231,7 +253,7 @@ struct LiveGameScreen: View {
                             IncrementPlayer1CurGameScore()
                           //notify the other watch
                           sendPingToIos()
-                        } else if  watchConnector.opponentDoneAPoint{// slide left
+                        } else if  gesture.translation.width < 0 {// slide left
                            // IncrementPlayer2CurGameScore()
                           //this function will be activated base on the notification fron other watch
                         }
@@ -245,11 +267,10 @@ struct LiveGameScreen: View {
                     }
                      
                     }
-            }
+            
     }
-    
+
     func IncrementPlayer2CurGameScore() {
-      print("08080808080808")
             // Increment the current game score based on tennis scoring
             switch player2CurGameScore {
             case "0", "15":
@@ -312,19 +333,7 @@ struct LiveGameScreen: View {
         }
     
     func CheckifSomeoneWon(SetsPlayed: Int) -> Bool {
-        /*
-        if(SetsPlayed == 1){
-            //player 1 won
-            if(sharedData.setWinners[0] == 1){
-                sharedData.isPlayer1Won = true
-            }
-            else{
-                sharedData.isPlayer1Won = false
-            }
-            return true
-        }
-         */
-        
+ 
         if (SetsPlayed == 2){
             if(sharedData.setWinners[0] == 1 && sharedData.setWinners[1] == 1){
                 sharedData.isPlayer1Won = true
@@ -392,7 +401,7 @@ struct LiveGameScreen: View {
         guard let currentOpponentSetScore = Int(sharedData.player2CurSetScore) else {
             return
         }
-        
+   
         if (currentSetScore < 5){
             sharedData.player1CurSetScore = String(currentSetScore + 1)
         }
@@ -402,18 +411,21 @@ struct LiveGameScreen: View {
             
             //if I lead 5-4, 6-5, 7-6 etc..
             if (currentSetScore == currentOpponentSetScore + 1){
+
                 sharedData.player1CurSetScore = String(currentSetScore + 1)
                 updateSetScoreAndCheckWin()
                 return
             }
             //it is 5-5,6-6,7-7 etc or he lead me by 1 , 5-6,6-7 etc.
             if (currentSetScore == currentOpponentSetScore){
+
                 sharedData.player1CurSetScore = String(currentSetScore + 1)
                 return
             }
             
             //6-2,6-3...
             else{
+
                 sharedData.player1CurSetScore = String(currentSetScore + 1)
                 updateSetScoreAndCheckWin()
                 return
@@ -422,6 +434,8 @@ struct LiveGameScreen: View {
     }
     
     func IncrementPlayer2CurSetScore() {
+    
+      
         // Increment the current set score based on tennis scoring
         guard let currentSetScore = Int(sharedData.player2CurSetScore) else {
             return
@@ -430,7 +444,7 @@ struct LiveGameScreen: View {
         guard let currentOpponentSetScore = Int(sharedData.player1CurSetScore) else {
             return
         }
-        
+
         if (currentSetScore < 5){
             sharedData.player2CurSetScore = String(currentSetScore + 1)
         }
@@ -466,7 +480,9 @@ struct LiveGameScreen: View {
   func sendStopToIos() {
       watchConnector.sendpauseToIos(pause: "pause")
   }
-  
+  func sendviToIos() {
+      watchConnector.sendviToIos(vi: "vi")
+  }
 }
 
 struct LiveGameScreen_Previews: PreviewProvider {

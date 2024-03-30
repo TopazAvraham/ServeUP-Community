@@ -11,7 +11,11 @@ struct FinishedGameScreen: View {
   func cleanAllData(){
     sharedData.cleanAllData()
     opponentDetails.cleanAllData()
+    DupCleaner.hasAppeared = false
+
   }
+  
+ 
   
   func SubmitToIos() {
     //take the result from SharedData
@@ -68,6 +72,7 @@ struct FinishedGameScreen: View {
                                  Button(action: {
                                      SubmitToIos()
                                    cleanAllData()
+                               
                                  }) {
                                      Text("Submit Results")
                                          .font(.system(size: 15, design: .rounded))

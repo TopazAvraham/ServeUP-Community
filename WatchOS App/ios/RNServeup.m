@@ -41,7 +41,7 @@ bool hasListeners = NO;
 
 RCT_EXPORT_METHOD (addEvent: (NSString *)name location: (NSString *)location)
 {
-  RCTLogInfo(@"Pretending to create an event %@", name);
+  //RCTLogInfo(@"Pretending to create an event %@", name);
   
   if ([name isEqualToString:@"new"] && [location isEqualToString:@"operation"]) {
     Operation *operation = [Operation shared];
