@@ -6,6 +6,7 @@ import userRoute from './routes/userRoute.js';
 import tokenRoute from './routes/tokenRoute.js';  
 import friendRequestsRoute from './routes/friendRequestsRoute.js';
 import chatRouter from './routes/chatRoute.js';
+import postRoute from './routes/postRoute.js';
 var server;
 async function startServer() {
 //create app
@@ -26,7 +27,8 @@ mongoose.connect(process.env.DB_HOST);
   app.use('/api/users/', userRoute);
   app.use('/api/tokens/', tokenRoute);
   app.use('/api/friendRequests/', friendRequestsRoute);
-  app.use('/api/chats/')
+  app.use('/api/chats/',chatRouter);
+  app.use('/api/posts/', postRoute);
   server.listen(3000, () => {
     console.log('Server is running on port 3000 http://localhost:3000');
   });
