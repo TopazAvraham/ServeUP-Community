@@ -166,6 +166,12 @@ struct FinishSetScreen: View {
                             queue: .main
                         ) { _ in
                             // Set shouldNavigate to true to trigger navigation
+                          if(sharedData.setWinners[0] == 1){
+                              sharedData.isPlayer1Won = true
+                          }
+                          else{
+                              sharedData.isPlayer1Won = false
+                          }
                           navigateToFinishCheck = true
                         }
                     }
