@@ -23,6 +23,7 @@ struct FinishedGameScreen: View {
     let formattedString = sharedData.setScores.map { "\($0.player1)-\($0.player2)" }.joined(separator: ",")
     watchConnector.sendFinalScoreToIos(finalScore: formattedString)
     isSubmitButtonTapped = true
+
    }
   
     func winningPlayerName() -> String {
@@ -68,10 +69,12 @@ struct FinishedGameScreen: View {
                                  ) {
                                      EmptyView()
                                  }
+
                              } else {
                                  Button(action: {
                                      SubmitToIos()
                                    cleanAllData()
+
                                
                                  }) {
                                      Text("Submit Results")
@@ -86,6 +89,15 @@ struct FinishedGameScreen: View {
                          }
             .padding(.horizontal, 20)
             .background(Color(red: 22/255, green: 37/255, blue: 41/255))
+            .alert(isPresented: $isSubmitButtonTapped) {
+                Alert(
+                    title: Text("Submitted successfully"),
+                    message: Text("We look forward to seeing you soon..."),
+                    dismissButton: .default(Text("Close the app"), action: {
+                    exit(0)
+                            })
+                )
+            }
         }
     }
 }

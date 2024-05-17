@@ -12,6 +12,7 @@ struct LiveGameScreen: View {
     @State private var CheckSetScreen = false
     @State private var CheckFinishedSet = false
     @State private var showAlert = false
+    @State private var showConfirmationAlert = false
     
     @State var player1CurGameScore = "0"
     @State var player2CurGameScore = "0"
@@ -24,16 +25,16 @@ struct LiveGameScreen: View {
         }
         //set 1 already finished and set 2 is currently, check who won first and decalre him winner
         if (sharedData.curSetPlayed == 2){
-            //check who won first set and declare him the winner
-            if (sharedData.setWinners[0] == 1){
-                sharedData.isPlayer1Won = true
-            }
-            else{
-                sharedData.isPlayer1Won = false
-            }
-            //can go to finish screen to declarw winner
-            self.isGameFinishedScreenPressed = true
-            return
+              //check who won first set and declare him the winner
+              if (sharedData.setWinners[0] == 1){
+                  sharedData.isPlayer1Won = true
+              }
+              else{
+                  sharedData.isPlayer1Won = false
+              }
+              //can go to finish screen to declarw winner
+              self.isGameFinishedScreenPressed = true
+          return
         }
         //this is the third set played now - so must be 1-1 in sets so no winner until finish set 3
         showAlert = true
@@ -144,10 +145,15 @@ struct LiveGameScreen: View {
                       .cornerRadius(3)
                       .rotationEffect(.degrees(-38))
                       .onTapGesture {
-                          ViFunc()
-                        if(isGameFinishedScreenPressed){
-                          sendviToIos()
-                        }
+                          if (sharedData.curSetPlayed == 2){
+                            showConfirmationAlert=true
+                          }
+                          else{
+                            ViFunc()
+                          if(isGameFinishedScreenPressed){
+                            sendviToIos()
+                          }
+                          }
                       }
                       .padding(.leading, 150)                      
 
@@ -158,28 +164,53 @@ struct LiveGameScreen: View {
                       .cornerRadius(3)
                       .rotationEffect(.degrees(30))
                       .onTapGesture {
-                          ViFunc()
-                        if(isGameFinishedScreenPressed){
-                          sendviToIos()
+                          if (sharedData.curSetPlayed == 2){
+                            showConfirmationAlert=true
+                          }
+                          else{
+                            ViFunc()
+                          if(isGameFinishedScreenPressed){
+                            sendviToIos()
+                          }
                         }
                       }
                       .padding(.leading, -3)
                       .padding(.top, -1.7)
                 }
                 .onTapGesture {
+                  if (sharedData.curSetPlayed == 2){
+                    showConfirmationAlert=true
+                  }
+                  else{
                     ViFunc()
                   if(isGameFinishedScreenPressed){
                     sendviToIos()
                   }
+                  }
+                  
                 }
                 .alert(isPresented: $showAlert) {
                     Alert(
-                        title: Text("Not Allowed"),
-                        message: Text("You cannot submit the game at this point."),
+                      title: Text("Not Allowed"),
+                      message: Text("You cannot submit the game at this point."),
                         dismissButton: .default(Text("OK"))
                     )
                 }
-
+                .alert(isPresented: $showConfirmationAlert) {
+                    Alert(
+                        title: Text("Submission"),
+                        message: Text("Are you sure you want to end the game?"),
+                        primaryButton: .default(Text("Submit the game"), action: {
+                                      ViFunc()
+                                    if(isGameFinishedScreenPressed){
+                                      sendviToIos()
+                                    }
+                                }),
+                                secondaryButton: .default(Text("Cancel"), action: {
+                
+                                })
+                    )
+                }
                 .onAppear {
                                 // Observe the notification to move to the start screen
                                 NotificationCenter.default.addObserver(

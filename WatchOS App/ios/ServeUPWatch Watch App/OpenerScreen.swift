@@ -54,7 +54,7 @@ struct OpenerScreen: View {
                   .multilineTextAlignment(.center)
                   .foregroundColor(Color.white)
                   .padding(.horizontal, 20)
-                  .frame(width: 200, height: 30)                    
+                  .frame(width: 200, height: 30)
                   .fixedSize(horizontal: false, vertical: true)
                   .minimumScaleFactor(0.9)
                   .lineLimit(2)
