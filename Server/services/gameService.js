@@ -9,8 +9,8 @@ const gameService = {
       const player2ID = await userService.getUserID(player2);
       const winnerID = await userService.getUserID(winner);
       if (!player1ID || !player2ID) {
+
         console.log("One or more players do not exist");
-        //throw new Error("One or more players do not exist");
       }
 
       const game =  new Game({
@@ -25,8 +25,9 @@ const gameService = {
       const updatePlayersStats = await userService.updatePlayersStats(game);
       return savedGame;
     } catch (error) {
+
       console.log(`Failed to create game: ${error.message}`)
-      // throw new Error(`Failed to create game: ${error.message}`);
+ 
     }
   },
 
@@ -36,7 +37,6 @@ const gameService = {
 
       if (!user) {
         console.log("User not found")
-        // throw new Error("User not found");
       }
 
       // Retrieve games where the user is either player1 or player2
@@ -58,7 +58,6 @@ const gameService = {
     } catch (error) {
       console.log(`Failed to get games: ${error.message}`)
       console.log(error.message)
-      // throw new Error(`Failed to get games: ${error.message}`);
     }
   },
 };
