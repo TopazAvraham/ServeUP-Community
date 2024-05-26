@@ -2,7 +2,7 @@ import messageModel from "../models/messageModel.js";
 import chatModel from "../models/chatModel.js";
 import userService from "./userService.js";
 import UserModel from "../models/userModel.js";
-import messageSockets  from "./messageSocketService.js";
+import messageSockets  from "./socketService.js";
 const {socketSendMessage} = messageSockets;
 import { Expo } from 'expo-server-sdk';
 
