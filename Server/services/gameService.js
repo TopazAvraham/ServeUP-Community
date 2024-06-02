@@ -54,7 +54,7 @@ const gameService = {
         return game;
       }));
 
-      return updatedGames;
+      return updatedGames.reverse();
     } catch (error) {
       console.log(`Failed to get games: ${error.message}`)
       console.log(error.message)
