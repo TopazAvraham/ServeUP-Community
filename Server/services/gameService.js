@@ -9,7 +9,6 @@ const gameService = {
       const player2ID = await userService.getUserID(player2);
       const winnerID = await userService.getUserID(winner);
       if (!player1ID || !player2ID) {
-        console.log("One or more players do not exist");
         //throw new Error("One or more players do not exist");
       }
 

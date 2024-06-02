@@ -59,7 +59,6 @@ const FriendsRequestsCard = ({ details, index, arrayLength }: any) => {
       });
   
       if (response.ok) {
-        console.log("Friend request declined successfully");
         setIsVisible(false);
       } else {
         console.error("Failed to decline friend request");

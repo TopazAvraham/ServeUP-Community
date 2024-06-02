@@ -163,7 +163,6 @@ const getUserPerfectMatch = async (username, date, location, currentDate)=>{
         // More than 2 days difference
         matchingPercentage += 0;
       }
-      console.log("matchingPercentage after date: "+matchingPercentage)
 
       const isLocationMatch =
         post.location.name === location.name &&
@@ -177,7 +176,6 @@ const getUserPerfectMatch = async (username, date, location, currentDate)=>{
         matchingPercentage += 15; // You can adjust this based on your specific logic
       }
 
-      console.log("matchingPercentage after location: "+matchingPercentage)
 
       // Calculate matching percentage based on age (0 to 15 points)
       const ageDifference = Math.abs(post.player.age - user.age);
@@ -195,7 +193,6 @@ const getUserPerfectMatch = async (username, date, location, currentDate)=>{
         matchingPercentage += 0;
       }
 
-      console.log("matchingPercentage after age: "+matchingPercentage)
 
       // Calculate matching percentage based on level (0 to 25 points)
       const levelDifference = Math.abs(post.player.level - user.level);
@@ -213,7 +210,6 @@ const getUserPerfectMatch = async (username, date, location, currentDate)=>{
         matchingPercentage += 0;
       }
 
-      console.log("matchingPercentage after game_level: "+matchingPercentage)
 
       // Calculate matching percentage based on level the user think he is (0 to 10 points)
       const userLevelDifference = Math.abs(post.player.realLevel - user.realLevel);
@@ -231,7 +227,6 @@ const getUserPerfectMatch = async (username, date, location, currentDate)=>{
         matchingPercentage += 0;
       }
 
-      console.log("matchingPercentage after real_level: "+matchingPercentage)
 
       if (userMap.has(userKey)) {
         const existingPair = userMap.get(userKey);
