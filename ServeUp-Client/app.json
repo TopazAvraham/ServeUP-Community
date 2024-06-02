@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "my-app",
+    "name": "ServeUp",
     "slug": "my-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -32,6 +32,7 @@
       "eas": {
         "projectId": "98c7e94c-c4db-4da4-8cca-1e20028e2512"
       }
-    }
+    },
+    "owner": "topazavraham"
   }
 }

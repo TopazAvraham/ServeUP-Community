@@ -14,18 +14,6 @@ const LoginScreen = ({ navigation, setLoader, loaderBodyContent }: any) => {
     />
       </View>
       <View style={styles.fieldsContainer}>
-        <TouchableOpacity style={styles.inputField}>
-          <View style={styles.iconAndTextContainer}>
-            <GoogleIcon />
-            <Text style={styles.inputFieldText}>Login with Google</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.inputField}>
-          <View style={styles.iconAndTextFacebookContainer}>
-            <FacebookIcon height={25} />
-            <Text style={styles.inputFieldFbText}>Login with Meta</Text>
-          </View>
-        </TouchableOpacity>
         <TouchableOpacity 
         style={styles.inputField}
         onPress={() => navigation.navigate("LoginCredentialsScreen")}
