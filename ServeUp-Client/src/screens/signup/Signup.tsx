@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Image,
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import Person from "../../../assets/Person.svg";
@@ -28,11 +29,13 @@ const CustomAlert: React.FC<CustomAlertProps> = ({ isVisible, title, message, on
       <View style={styles.alertContainer}>
         <Text style={styles.alertTitle}>{title}</Text>
         <Text style={styles.alertMessage}>{message}</Text>
+        <TouchableOpacity style={styles.alertButton} onPress={onPress}>
+          <Text style={styles.alertButtonText}>OK</Text>
+        </TouchableOpacity>
       </View>
     </Modal>
   );
 };
-
 
 const SignupScreen = ({ navigation }: any) => {
   const [open, setOpen] = useState(false);
@@ -123,7 +126,7 @@ const SignupScreen = ({ navigation }: any) => {
     return "Please fill in all fields and choose a photo before continuing.";
   };
   
-  const [tryAlert, setAlertVisible] = useState(false);
+  const [isAlertVisible, setAlertVisible] = useState(false);
   const [username, setUsername] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [city, setCity] = useState("");
@@ -166,7 +169,7 @@ const SignupScreen = ({ navigation }: any) => {
           return;
         }
   
-        
+        // Your logic to store data, navigate, etc.
         const adminCode = apiCityData.find(city => city.name === cityValue).adminCode;
         await AsyncStorage.setItem("userToken", "dummyToken");
         navigation.navigate("SignupContinueScreen", {
@@ -176,7 +179,7 @@ const SignupScreen = ({ navigation }: any) => {
           city: cityValue, // Use the selected city value
           adminCode,
           password,
-          profilePic: "pic"
+          profilePic: ""
         });
       } catch (e) {
         console.error("Error while setting token:", e);
@@ -278,8 +281,8 @@ const SignupScreen = ({ navigation }: any) => {
       </ScrollView>
 
       <CustomAlert
-        isVisible={TryAlert}
-        title="Please Try again"
+        isVisible={isAlertVisible}
+        title="Validation Error"
         message={determineValidationMessage()}
         onPress={() => cleanStates()}
       />
