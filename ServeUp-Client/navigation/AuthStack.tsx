@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "../src/screens/login/Login";
 import SignupScreen from "../src/screens/signup/Signup";
-import SignupContinueScreen from "../src/screens/signupContinue/SignupContinue";
+import SignupContinueScreen from "../src/screens/signupcontinue/SignupContinue";
 import LoginCredentialsScreen from "../src/screens/loginCredentials/LoginCredentials";
 const AuthStack = createNativeStackNavigator();
 

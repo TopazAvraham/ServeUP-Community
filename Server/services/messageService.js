@@ -11,7 +11,6 @@ const expo = new Expo();
 const sendNotification = async (notification) => {
   try {
     const receipts = await expo.sendPushNotificationsAsync([notification]);
-    console.log('Receipts:', receipts);
   } catch (error) {
     console.error('Error sending notification:', error);
   }
