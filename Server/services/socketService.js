@@ -26,7 +26,6 @@ async function initConnection(socket, userSockets) {
     const opponent= dataObject.opponent;
     const me= dataObject.me;
   
-    //console.log(dataObject);
 
     const socket =userSockets[opponent];
     if (socket){
@@ -41,8 +40,6 @@ async function initConnection(socket, userSockets) {
   
     const liveGame= new LiveGame (me, opponent);
     liveGames.push(liveGame);
-    //console.log("opponent :" + opponent);
-    //console.log("me :" +me);
 
     userSockets[opponent].emit("gameCreated",JSON.stringify({opponent:me}));
     userSockets[me].emit("gameCreated",JSON.stringify({opponent:opponent}));
@@ -75,7 +72,6 @@ async function initConnection(socket, userSockets) {
       setTimeout(() => {
       let index= liveGames.indexOf(currentLiveGame);
       liveGames.splice(index,1);
-       console.log("this is live game array after deleting: ", liveGames);
       }, 5000);
     }
   });

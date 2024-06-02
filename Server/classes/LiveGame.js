@@ -17,10 +17,6 @@ class LiveGame {
     const sets =[];
     let index = 0;
     const saveScore1= this.score1;
-     
-    console.log(`the scoreeee isss:`);
-    console.log(saveScore1);
-    console.log(`---------------`);
 
     const pairs = this.score1.split(',');
     pairs.forEach(pair => {
@@ -37,7 +33,6 @@ class LiveGame {
           sets[index]= 0;
         }
       } else {
-        console.log(`Invalid score`);
       }
       index++;
     });
@@ -89,7 +84,7 @@ class LiveGame {
     });
     const winner =this.isPlayer1Won? this.player1: this.player2;
     gameService.createGame(this.date,this.player1,this.player2,setsDB,winner);
-    console.log(this.date,this.player1,this.player2,setsDB,winner);
+    
     // in the end we need to remove this live game instance from the live game array
     // so this two opponents will be able to play another time
     }
