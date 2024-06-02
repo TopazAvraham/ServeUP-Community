@@ -1,6 +1,6 @@
 import { Server } from 'socket.io';
 import tokenService from './tokenService.js';
-import LiveGame from '../classes/liveGame.js';
+import LiveGame from '../classes/LiveGame.js';
 const userSockets = {};
 const liveGames =[];
 
