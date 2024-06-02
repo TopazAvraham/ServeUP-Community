@@ -3,6 +3,7 @@ import { ScrollView, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useFocusEffect } from '@react-navigation/native';
 import Plus from "../../../assets/plus.svg";
 import EventsCard from "../../components/eventsCard/EventsCard";
 import styles from "./Styles";
@@ -15,7 +16,7 @@ const EventsScreen = ({ navigation }: any) => {
   const [postData, setPostData] = useState([]);
   const [myUserId, setMyUserId] = useState("");
 
-  useEffect(() => {
+  useFocusEffect(() => {
     // Function to fetch data from the server
     const fetchData = async () => {
       const token = await AsyncStorage.getItem("userToken");
@@ -64,7 +65,7 @@ const EventsScreen = ({ navigation }: any) => {
 
     // Call the fetch data function
     fetchData();
-  }, []); 
+  }); 
 
 
   // Function to format Mongoose date to a user-friendly format

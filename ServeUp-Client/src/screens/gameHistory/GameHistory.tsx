@@ -33,6 +33,7 @@ const GameHistoryScreen = ({ navigation }: any) => {
 
         if (response.ok) {
           const result = await response.json();
+          const data = result.data.sort((a, b) =>  new Date(b.date) - new Date(a.date));
           setGameData(result.data); // Update state with the fetched data
         } else {
           console.error("Failed to fetch data");
