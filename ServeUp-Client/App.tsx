@@ -65,7 +65,7 @@ function App() {
         
         if (status.granted) {
           // Get Expo Push Token after permission is granted
-          const expoPushToken = await Notifications.getExpoPushTokenAsync({ projectId: '812524e5-6bcc-4000-b2a1-e770745b6d4d' });
+          const expoPushToken = await Notifications.getExpoPushTokenAsync({ projectId: '98c7e94c-c4db-4da4-8cca-1e20028e2512' });
   
           if (expoPushToken) {
             const expoToken = expoPushToken.data;
