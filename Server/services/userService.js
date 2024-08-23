@@ -679,5 +679,24 @@ const removeExpoPushToken = async (username) => {
   }
 }
 
+const getUserPodium = async (username) => {
+try{
+  const user = await UserModel.findOne({'username': username}); 
+  const level = user.level.number;
+  const users = await UserModel.find({ 'level.number': level }).sort({ 'level.percentage': -1 });
+  for (const user of users) {
+    const profilePicUrl = await storageService.getProfilePicUrl(user.profilePic);
+    user.profilePic = profilePicUrl;
+  }
+  const myRank = users.findIndex((user) => user.username === username) + 1;
+  return {
+    podiumList : users,
+    myRank: myRank,
+    competitorsNumber: users.length
+  }
+} catch (error) {
+  return { error: error.message, status: 500 };
+}
+}
 
-export default {createUser,getUserFavorites,removeExpoPushToken, isLoginValid,getAllUsers, getUserDetails,getFullUserDetails,deleteUser,getUserID, updateUserInfo, getUserPerfectMatch,isUsernameExist, updatePlayersStats,updateUserProfilePic,getUserFriends};
+export default {createUser,getUserFavorites,removeExpoPushToken, isLoginValid,getAllUsers, getUserDetails,getFullUserDetails,deleteUser,getUserID, updateUserInfo, getUserPerfectMatch,isUsernameExist, updatePlayersStats,updateUserProfilePic,getUserFriends,getUserPodium};
