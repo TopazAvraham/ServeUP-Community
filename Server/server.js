@@ -9,6 +9,7 @@ import gameRouter from './routes/gameRoute.js';
 import postRoute from './routes/postRoute.js';
 import friendRequestsRoute from './routes/friendRequestsRoute.js';
 import messageSockets from './services/socketService.js';
+import podiumRoute from './routes/podiumRoute.js';
 const { messageSocketService } = messageSockets;
 var server;
 async function startServer() {
@@ -36,6 +37,7 @@ mongoose.connect(process.env.DB_HOST);
   app.use('/api/games/', gameRouter);
   app.use('/api/posts/', postRoute);
   app.use('/api/friendRequests/', friendRequestsRoute);
+  app.use('/api/podium/', podiumRoute);
   server.listen(3000, () => {
     console.log('Server is running on port 3000 http://localhost:3000');
   });
