@@ -242,25 +242,37 @@ const ProfileScreen = ({ navigation }: any) => {
           </View>
         </View>
         <View style={styles.actionsContainer}>
+          
           <TouchableOpacity
             style={styles.historyBtn}
             onPress={() => {
               navigation.navigate("GameHistoryScreen");
             }}
           >
-            <Text style={styles.historyBtnText}>Game History</Text>
+            <Text style={styles.historyBtnText}>History</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.friendsBtn}
+            style={styles.historyBtn3}
             onPress={() => {
               navigation.navigate("MyFriendsScreen");
             }}
           >
-            <Text style={styles.friendsBtnText}> My Friends</Text>
+            <Text style={styles.friendsBtnText}>Friends</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
+            style={styles.historyBtn}
+            onPress={() => {
+              navigation.navigate("MyLeagueScreen");
+            }}
+          >
+            <Text style={styles.historyBtnText}>League</Text>
+          </TouchableOpacity> 
+
+          <TouchableOpacity
+            style={styles.editBtn}
+          
             onPress={() => {
               // Check if userData is available
               if (userData) {
