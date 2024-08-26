@@ -4,7 +4,7 @@ interface AppConfig {
   }
   
 const config: AppConfig = {
-    serverAddress:'https://serveup-image-puiy23q2oa-zf.a.run.app',
+    serverAddress:'https://serveup-pehpinxjra-zf.a.run.app',
 };
   
 export default config;
