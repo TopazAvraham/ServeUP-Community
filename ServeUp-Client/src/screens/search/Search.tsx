@@ -164,7 +164,7 @@ const SearchScreen = ({ navigation }: any) => {
         {friendsData
             .filter((friend) => {
               // Filter based on search bar input
-              return friend.displayName.includes(searchInput.toLowerCase());
+              return friend.displayName.toLowerCase().includes(searchInput.toLowerCase());
             })
             .filter((friend) => {
               // Filter based on level if the "My Level" pill is selected
